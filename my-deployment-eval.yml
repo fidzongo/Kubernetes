@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # nom de notre deployment
+  name: my-deployment-eval
+  labels:
+    app: my-api-eval
+spec:
+  # Nous créons 3 repliques de pods
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-api-eval
+  template:
+    metadata:
+      labels:
+        app: my-api-eval
+    spec:
+      containers:
+      # On crée un premier container pour la base de données
+      - name: my-eval-database
+        # On appel l'image docker de la base de données
+        image: datascientest/mysql-k8s:1.0.0
+        ports:
+        # La BDD sera joignable sur le port MySQL 3306
+        - containerPort: 3306       
+      - name: my-eval-fastapi
+        # On appel l'image docker que nous avons au préalable publié dans dockerhub
+        image: fidzongoformation/fast-api:1.0.0
+        ports:
+        # ce container sera joignable sur le port 8000
+        - containerPort: 8000
+        # Nous recupérons les valeurs URL et PASSWORD depuis les variables d'environnements
+        # Pour la variable MYSQL_UL nous la recupérons depuis la configMap
+        envFrom:
+        - configMapRef:
+            name: my-config-map-eval
+        env:
+        # Pour le PASSWORD de la BDD nous la recupérons depuis le secret
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret-eval
+              key: MYSQL_PASSWORD 
