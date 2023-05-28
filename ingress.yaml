@@ -3,11 +3,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   # Nom du ingress pour la communication avec l'exterieur
-  name: my-ingress-eval
+  name: my-ingress
 spec:
   defaultBackend:
     service:
       # Lié au service my-service-eval
-      name: my-service-eval
+      name: my-service
       port:
         number: 8001
