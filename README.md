@@ -1,4 +1,4 @@
-# Kubernetes
+# Manifeste de deploiement d'une api
 Manifeste de déploiement contenant :
 - Une API FastAPI
 - Une base de donnée MySQL
