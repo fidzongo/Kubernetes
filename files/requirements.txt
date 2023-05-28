@@ -1,7 +1,0 @@
-fastapi
-sqlalchemy
-mysqlclient
-uvicorn
-# Ajout pour lever l'exception cryptography is required for sha256_password or caching_sha2_password
-cryptography
-pymysql
