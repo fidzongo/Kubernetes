@@ -9,6 +9,7 @@ Ce manifeste de déploiement:
 - Un Ingress pour permettre l'accès à l'API.
 
 # Création de l'api
+fichier main.py:
 ```python
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -28,7 +29,7 @@ server = FastAPI(title='User API')
 # creating a connection to the database
 # On recupère la valeur a partir de la variable d'environnement MYSQL_URL
 mysql_url = os.environ["MYSQL_URL"]
-mysql_user = 'root'
+mysql_user = 'user_mysql'
 # On recupère la valeur a partir de la variable d'environnement MYSQL_PASSWORD
 mysql_password = os.environ["MYSQL_PASSWORD"]
 database_name = 'Main'
@@ -95,6 +96,7 @@ async def get_user(user_id):
 ```
 
 # Création de l'image docker de l'api
+On considerera ici que la base de donnée mysql est déjà installée (les credentials dans le fichiers credentials.env)
 ```
 # Construction à partir du dockerfile
 mkir fastapi
